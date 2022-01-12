@@ -3,13 +3,23 @@ package lib
 import "fmt"
 
 type LinkedList struct {
-	Length uint
-	Head   *Node
-	Tail   *Node
+	Head *Node
 }
 
-func (l LinkedList) Len() uint {
-	return l.Length
+func (l *LinkedList) Len() uint {
+	if l.Head == nil {
+		return 0
+	}
+
+	var length uint
+	var temp *Node = l.Head
+
+	for temp != nil {
+		length++
+		temp = temp.Next
+	}
+
+	return length
 }
 
 func (l LinkedList) Display() {
@@ -26,7 +36,6 @@ func (l *LinkedList) PushBack(new *Node) {
 
 	if l.Head == nil {
 		l.Head = new
-		l.Length++
 
 		return
 	}
@@ -42,8 +51,6 @@ func (l *LinkedList) PushBack(new *Node) {
 
 	// ubah pointer next dari last node ke new node
 	last.Next = new
-
-	l.Length++
 }
 
 func (l *LinkedList) Push(new *Node) {
@@ -54,7 +61,6 @@ func (l *LinkedList) Push(new *Node) {
 
 	// l.Head akan digantikan oleh value n yang baru
 	l.Head = new
-	l.Length++
 }
 
 func (l *LinkedList) PushAfter(prev *Node, new *Node) {
@@ -72,9 +78,6 @@ func (l *LinkedList) PushAfter(prev *Node, new *Node) {
 
 	// ubah next dari previous node menjadi new node
 	prev.Next = new
-
-	// tambahkan length dari linkedlist
-	l.Length++
 }
 
 func (l *LinkedList) Pop() int {
@@ -93,8 +96,6 @@ func (l *LinkedList) Pop() int {
 
 	output := last.Next
 	last.Next = nil
-
-	l.Length--
 
 	return output.Data
 }
@@ -134,7 +135,6 @@ func (l *LinkedList) Delete(pos int) {
 	// maka cukup ganti head menjadi node selanjutnya
 	if pos == 0 {
 		l.Head = temp.Next
-		l.Length--
 
 		return
 	}

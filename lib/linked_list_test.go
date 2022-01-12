@@ -21,3 +21,27 @@ func TestGetList(t *testing.T) {
 
 	assert.True(t, isFound, "Failed")
 }
+
+func TestLength(t *testing.T) {
+	var l = LinkedList{}
+
+	var n1 *Node = &Node{Data: 5}
+	var n2 *Node = &Node{Data: 6}
+	var n3 *Node = &Node{Data: 7}
+	var n4 *Node = &Node{Data: 8}
+
+	l.PushBack(n1)
+	l.PushBack(n2)
+	l.PushBack(n3)
+	l.PushBack(n4)
+
+	assert.Equal(t, uint(4), l.Len(), "Ukuran tidak sesuai")
+
+	l.Pop()
+
+	assert.Equal(t, uint(3), l.Len(), "Ukuran tidak sesuai")
+
+	l.Push(&Node{Data: 4})
+
+	assert.Equal(t, uint(4), l.Len(), "Ukuran tidak sesuai")
+}
