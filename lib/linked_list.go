@@ -130,7 +130,7 @@ func (l *LinkedList) Delete(pos int) {
 	// taruh node head ke variabel temp
 	var temp *Node = l.Head
 
-	// jika yang dihapus adalah head, 
+	// jika yang dihapus adalah head,
 	// maka cukup ganti head menjadi node selanjutnya
 	if pos == 0 {
 		l.Head = temp.Next
@@ -158,4 +158,22 @@ func (l *LinkedList) Delete(pos int) {
 	// otomatis node di antara previous dan next akan hilang
 	// karena prev dan next langsung disambungkan
 	temp.Next = next
+}
+
+func (l *LinkedList) Get(pos int) (int, bool) {
+	if l.Head == nil {
+		return 0, false
+	}
+
+	var temp *Node = l.Head
+
+	for i := 0; i < pos && temp != nil; i++ {
+		temp = temp.Next
+	}
+
+	if temp == nil {
+		return 0, false
+	}
+
+	return temp.Data, true
 }
